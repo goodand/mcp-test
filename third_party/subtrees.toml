@@ -1,0 +1,68 @@
+[workspace]
+root = "third_party/subtrees"
+
+[[subtrees]]
+id = "pixelmatch"
+full_name = "mapbox/pixelmatch"
+source_path = "."
+subtree_prefix = "third_party/subtrees/pixelmatch"
+decision = "adopt_subtree"
+import_mode = "whole_repo"
+role = "pixel_diff_core"
+validation_command = "npm test"
+notes = "Small deterministic comparator with clear root package boundary"
+
+[[subtrees]]
+id = "odiff_bin"
+full_name = "dmtrKovalenko/odiff"
+source_path = "npm_packages/odiff-bin"
+subtree_prefix = "third_party/subtrees/odiff-bin"
+decision = "adopt_subtree"
+import_mode = "split_subdir"
+role = "high_performance_diff_backend"
+validation_command = "node odiff.js"
+notes = "Runtime boundary is odiff-bin subpackage, not monorepo root"
+
+[[subtrees]]
+id = "looks_same"
+full_name = "gemini-testing/looks-same"
+source_path = "."
+subtree_prefix = ""
+decision = "package_dependency_now"
+import_mode = "package_dependency"
+role = "perceptual_diff_backend"
+validation_command = "npm test"
+notes = "Keep as dependency unless patching becomes necessary"
+
+[[subtrees]]
+id = "dom_to_pptx"
+full_name = "atharva9167j/dom-to-pptx"
+source_path = "."
+subtree_prefix = "third_party/subtrees/dom-to-pptx"
+decision = "defer"
+import_mode = "whole_repo"
+role = "html_to_ppt_mapping_reference"
+validation_command = "npm test"
+notes = "Official upstream boundary is root package; avoid src-only split"
+
+[[subtrees]]
+id = "opendataloader_pdf_core"
+full_name = "opendataloader-project/opendataloader-pdf"
+source_path = "java/opendataloader-pdf-core"
+subtree_prefix = "third_party/subtrees/opendataloader-pdf-core"
+decision = "defer"
+import_mode = "split_subdir"
+role = "processor_chain_reference"
+validation_command = "./mvnw test"
+notes = "Only if processor code needs local patching"
+
+[[subtrees]]
+id = "docling_repo"
+full_name = "docling-project/docling"
+source_path = "."
+subtree_prefix = "third_party/subtrees/docling-repo"
+decision = "defer"
+import_mode = "whole_repo"
+role = "conversion_pipeline_reference"
+validation_command = "pytest -q"
+notes = "Use package dependency/reference first; subtree only if internals need patching"
